@@ -1,4 +1,4 @@
-project(QvSimplePlugin)
+project(QvCommandPlugin)
 cmake_minimum_required(VERSION 3.1.0)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -19,16 +19,23 @@ include(interface/QvPluginInterface.cmake)
 include_directories(${QVPLUGIN_INTERFACE_INCLUDE_DIR})
 
 add_library(${PROJECT_NAME} MODULE
-    SimplePlugin.hpp
-    SimplePlugin.cpp
+    CommandPlugin.hpp
+    CommandPlugin.cpp
     core/EventHandler.cpp
     core/EventHandler.hpp
-    core/Serializer.cpp
-    core/Serializer.hpp
-    core/Kernel.cpp
-    core/Kernel.hpp
+    core/CommandConfig.hpp
+    ui/CommandPluginSettings.cpp
+    ui/CommandPluginSettings.hpp
+    ui/CommandPluginSettings.ui
+    lib/QJsonStruct/QJsonStruct.hpp
     resx.qrc
     ${QVPLUGIN_INTERFACE_HEADERS})
+
+if(APPLE)
+    add_custom_command(TARGET ${PROJECT_NAME}
+        POST_BUILD
+        COMMAND ${CMAKE_INSTALL_NAME_TOOL} -add_rpath "@executable_path/../Frameworks/" $<TARGET_FILE:${PROJECT_NAME}>)
+endif()
 
 target_link_libraries(${PROJECT_NAME}
     Qt5::Core
