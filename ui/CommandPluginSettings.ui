@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
-   <item row="0" column="0">
+   <item row="1" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
       <number>0</number>
@@ -199,6 +199,13 @@ $$SOCKS: SOCKS port (could be 0)</string>
        </item>
       </layout>
      </widget>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_14">
+     <property name="text">
+      <string>Commands start with &quot;$$CALL&quot; will make program start detached.</string>
+     </property>
     </widget>
    </item>
   </layout>

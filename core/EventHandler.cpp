@@ -49,10 +49,19 @@ QvPlugin_EventHandler(SimpleEventHandler, Connectivity)
         {
             _command.replace("$$INBOUND_" + protocol, QString::number(pluginEvent.inboundPorts[protocol]));
         }
-        auto returnvalue = QProcess::execute(_command);
-        if (returnvalue != 0)
+        bool detached = _command.contains("$$CALL");
+        _command.replace("$$CALL", "");
+        if (detached)
         {
-            CommandPlugin::instance->PluginLog("Failed to execute command : \"" + action + "\"");
+            auto returnvalue = QProcess::execute(_command);
+            if (returnvalue != 0)
+            {
+                CommandPlugin::instance->PluginLog("Failed to execute command : \"" + action + "\"");
+            }
+        }
+        else
+        {
+            QProcess::startDetached(_command);
         }
     }
 }
@@ -83,10 +92,19 @@ QvPlugin_EventHandler(SimpleEventHandler, SystemProxy)
         auto _command = action;
         _command.replace("$$HTTP", QString::number(pluginEvent.systemProxyPortSettings[Events::SystemProxy::SystemProxy_HTTP]));
         _command.replace("$$SOCKS", QString::number(pluginEvent.systemProxyPortSettings[Events::SystemProxy::SystemProxy_SOCKS]));
-        auto returnvalue = QProcess::execute(_command);
-        if (returnvalue != 0)
+        bool detached = _command.contains("$$CALL");
+        _command.replace("$$CALL", "");
+        if (detached)
         {
-            CommandPlugin::instance->PluginLog("Failed to execute command : \"" + action + "\"");
+            auto returnvalue = QProcess::execute(_command);
+            if (returnvalue != 0)
+            {
+                CommandPlugin::instance->PluginLog("Failed to execute command : \"" + action + "\"");
+            }
+        }
+        else
+        {
+            QProcess::startDetached(_command);
         }
     }
 }
@@ -127,10 +145,19 @@ QvPlugin_EventHandler(SimpleEventHandler, ConnectionEntry)
         auto _command = action;
         _command.replace("$$DISPLAYNAME", pluginEvent.displayName);
         _command.replace("$$ORIGINAL_NAME", pluginEvent.originalDisplayName);
-        auto returnvalue = QProcess::execute(_command);
-        if (returnvalue != 0)
+        bool detached = _command.contains("$$CALL");
+        _command.replace("$$CALL", "");
+        if (detached)
         {
-            CommandPlugin::instance->PluginLog("Failed to execute command : \"" + action + "\"");
+            auto returnvalue = QProcess::execute(_command);
+            if (returnvalue != 0)
+            {
+                CommandPlugin::instance->PluginLog("Failed to execute command : \"" + action + "\"");
+            }
+        }
+        else
+        {
+            QProcess::startDetached(_command);
         }
     }
 }
