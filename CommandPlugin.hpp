@@ -35,7 +35,7 @@ class CommandPlugin
         };
     }
     //
-    std::shared_ptr<QvPluginKernel> GetKernel() override;
+    std::unique_ptr<QvPluginKernel> CreateKernel() override;
     std::shared_ptr<QvPluginSerializer> GetSerializer() override;
     std::shared_ptr<QvPluginEventHandler> GetEventHandler() override;
     std::unique_ptr<QvPluginEditor> GetEditorWidget(UI_TYPE) override;

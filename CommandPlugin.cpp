@@ -4,7 +4,7 @@
 
 CommandPlugin *CommandPlugin::instance = nullptr;
 
-std::shared_ptr<QvPluginKernel> CommandPlugin::GetKernel()
+std::unique_ptr<QvPluginKernel> CommandPlugin::CreateKernel()
 {
     return nullptr;
 }
