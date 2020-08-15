@@ -3,10 +3,9 @@
 #include "CommandPlugin.hpp"
 #include "ui_CommandPluginSettings.h"
 
-CommandPluginSettings::CommandPluginSettings(QWidget *parent) : QWidget(parent), ui(new Ui::CommandPluginSettings)
+CommandPluginSettings::CommandPluginSettings(QWidget *parent) : Qv2rayPlugin::QvPluginSettingsWidget(parent), ui(new Ui::CommandPluginSettings)
 {
     ui->setupUi(this);
-    settings = CommandPlugin::instance->Settings();
     ui->preConnTxt->setPlainText(settings.beforeConnection);
     ui->postConnTxt->setPlainText(settings.afterConnection);
     ui->preDisconnTxt->setPlainText(settings.beforeDisConnection);
@@ -23,7 +22,6 @@ CommandPluginSettings::CommandPluginSettings(QWidget *parent) : QWidget(parent),
 
 CommandPluginSettings::~CommandPluginSettings()
 {
-    CommandPlugin::instance->UpdateSettings(settings.toJson());
     delete ui;
 }
 
