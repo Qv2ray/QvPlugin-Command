@@ -16,10 +16,7 @@ class CommandPluginSettings : public Qv2rayPlugin::QvPluginSettingsWidget
     explicit CommandPluginSettings(QWidget *parent = nullptr);
     ~CommandPluginSettings();
 
-    void SetSettings(const QJsonObject &settings) override
-    {
-        this->settings.loadJson(settings);
-    }
+    void SetSettings(const QJsonObject &s) override;
 
     QJsonObject GetSettings() override
     {

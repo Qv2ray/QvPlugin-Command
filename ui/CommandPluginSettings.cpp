@@ -6,6 +6,11 @@
 CommandPluginSettings::CommandPluginSettings(QWidget *parent) : Qv2rayPlugin::QvPluginSettingsWidget(parent), ui(new Ui::CommandPluginSettings)
 {
     ui->setupUi(this);
+}
+
+void CommandPluginSettings::SetSettings(const QJsonObject &s)
+{
+    this->settings.loadJson(s);
     ui->preConnTxt->setPlainText(settings.beforeConnection);
     ui->postConnTxt->setPlainText(settings.afterConnection);
     ui->preDisconnTxt->setPlainText(settings.beforeDisConnection);
