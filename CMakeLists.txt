@@ -1,7 +1,7 @@
-project(QvCommandPlugin)
+project(QvPlugin-Command)
 cmake_minimum_required(VERSION 3.1.0)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 if(CMAKE_VERSION VERSION_LESS "3.7.0")
     set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -16,6 +16,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 set(QVPLUGIN_INTERFACE_INCLUDE_DIR "interface/")
 include(interface/QvPluginInterface.cmake)
+include(interface/QvGUIPluginInterface.cmake)
 include_directories(${QVPLUGIN_INTERFACE_INCLUDE_DIR})
 
 add_library(${PROJECT_NAME} MODULE
@@ -24,12 +25,15 @@ add_library(${PROJECT_NAME} MODULE
     core/EventHandler.cpp
     core/EventHandler.hpp
     core/CommandConfig.hpp
+    ui/GUIInterface.hpp
     ui/CommandPluginSettings.cpp
     ui/CommandPluginSettings.hpp
     ui/CommandPluginSettings.ui
     lib/QJsonStruct/QJsonStruct.hpp
     resx.qrc
-    ${QVPLUGIN_INTERFACE_HEADERS})
+    ${QVPLUGIN_INTERFACE_HEADERS}
+    ${QVGUIPLUGIN_INTERFACE_HEADERS}
+    )
 
 if(APPLE)
     add_custom_command(TARGET ${PROJECT_NAME}

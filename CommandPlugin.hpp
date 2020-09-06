@@ -7,7 +7,6 @@
 #include <QObject>
 #include <QtPlugin>
 
-class QLabel;
 using namespace Qv2rayPlugin;
 
 class CommandPlugin
@@ -27,35 +26,18 @@ class CommandPlugin
             "Qv2ray Workgroup",                                  //
             "qvplugin_command",                                  //
             "Run any command when an event from Qv2ray occurs.", //
-            QIcon(":/assets/qv2ray.png"),                        //
-            { CAPABILITY_CONNECTION_ENTRY,                       //
-              CAPABILITY_CONNECTIVITY,                           //
-              CAPABILITY_SYSTEM_PROXY },                         //
-            {}                                                   //
+            "v3.0.0",                                            //
+            "Qv2ray/QvPlugin-Command",                           //
+            {
+                COMPONENT_EVENT_HANDLER, //
+                COMPONENT_GUI            //
+            },
+            UPDATE_GITHUB_RELEASE //
         };
     }
-    //
-    std::unique_ptr<QvPluginKernel> CreateKernel() override;
-    std::shared_ptr<QvPluginSerializer> GetSerializer() override;
-    std::shared_ptr<QvPluginEventHandler> GetEventHandler() override;
-    std::unique_ptr<QvPluginEditor> GetEditorWidget(UI_TYPE) override;
-    std::unique_ptr<QWidget> GetSettingsWidget() override;
-    //
-    static CommandPlugin *instance;
-    //
-    bool UpdateSettings(const QJsonObject &) override;
-    bool Initialize(const QString &, const QJsonObject &) override;
-    const QJsonObject GetSettngs() override;
-    const CommandPluginConfig Settings()
-    {
-        return settings;
-    }
-    //
+    bool InitializePlugin(const QString &, const QJsonObject &) override;
+
   signals:
     void PluginLog(const QString &) const override;
-    void PluginErrorMessageBox(const QString &) const override;
-
-  private:
-    CommandPluginConfig settings;
-    std::shared_ptr<QvPluginEventHandler> eventHandler;
+    void PluginErrorMessageBox(const QString &, const QString &) const override;
 };

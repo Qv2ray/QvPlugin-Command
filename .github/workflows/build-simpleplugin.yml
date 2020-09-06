@@ -38,7 +38,7 @@ jobs:
       - name: Get Plugin Name
         id: get_name
         shell: bash
-        run: echo ::set-output name=NAME::QvCommandPlugin
+        run: echo ::set-output name=NAME::QvPlugin-Command
       - name: Checking out sources
         uses: actions/checkout@master
       - name: Install Python 3.7 version
@@ -94,6 +94,8 @@ jobs:
         if: matrix.platform == 'ubuntu-16.04'
         shell: bash
         env:
+          CC: /usr/bin/gcc-7
+          CXX: /usr/bin/g++-7
           CXXFLAGS: -fno-sized-deallocation
         run: |
           mkdir build
