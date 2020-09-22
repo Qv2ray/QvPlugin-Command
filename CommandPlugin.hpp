@@ -11,7 +11,7 @@ using namespace Qv2rayPlugin;
 
 class CommandPlugin
     : public QObject
-    , Qv2rayInterface
+    , public Qv2rayInterface
 {
     Q_INTERFACES(Qv2rayPlugin::Qv2rayInterface)
     Q_PLUGIN_METADATA(IID Qv2rayInterface_IID)
@@ -41,3 +41,5 @@ class CommandPlugin
     void PluginLog(const QString &) const override;
     void PluginErrorMessageBox(const QString &, const QString &) const override;
 };
+
+DECLARE_PLUGIN_INSTANCE(CommandPlugin);

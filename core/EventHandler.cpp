@@ -14,7 +14,7 @@ QvPlugin_EventHandler(SimpleEventHandler, Connectivity)
     /// $$INBOUND_inboundProtocol
     ///  --> port for that protocol, (e.g. $INBOUND_http as HTTP port)
     ///
-    const auto settings = CommandPluginConfig::fromJson(pluginInstance->GetSettngs());
+    const auto settings = CommandPluginConfig::fromJson(CommandPluginInstance->GetSettngs());
 
     QStringList actions;
     switch (pluginEvent.eventType)
@@ -55,7 +55,7 @@ QvPlugin_EventHandler(SimpleEventHandler, Connectivity)
             auto returnvalue = QProcess::execute(_command);
             if (returnvalue != 0)
             {
-                pluginInstance->PluginLog("Failed to execute command : \"" + action + "\"");
+                CommandPluginInstance->PluginLog("Failed to execute command : \"" + action + "\"");
             }
         }
         else
@@ -71,7 +71,7 @@ QvPlugin_EventHandler(SimpleEventHandler, SystemProxy)
     /// $$HTTP: HTTP port (could be 0)
     /// $$SOCKS: SOCKS port (could be 0)
     ///
-    const auto settings = CommandPluginConfig::fromJson(pluginInstance->GetSettngs());
+    const auto settings = CommandPluginConfig::fromJson(CommandPluginInstance->GetSettngs());
     QStringList actions;
     switch (pluginEvent.systemProxyState)
     {
@@ -98,7 +98,7 @@ QvPlugin_EventHandler(SimpleEventHandler, SystemProxy)
             auto returnvalue = QProcess::execute(_command);
             if (returnvalue != 0)
             {
-                pluginInstance->PluginLog("Failed to execute command : \"" + action + "\"");
+                CommandPluginInstance->PluginLog("Failed to execute command : \"" + action + "\"");
             }
         }
         else
@@ -114,7 +114,7 @@ QvPlugin_EventHandler(SimpleEventHandler, ConnectionEntry)
     /// $$DISPLAYNAME
     /// $$ORIGINAL_NAME
     ///
-    const auto settings = CommandPluginConfig::fromJson(pluginInstance->GetSettngs());
+    const auto settings = CommandPluginConfig::fromJson(CommandPluginInstance->GetSettngs());
     QStringList actions;
     switch (pluginEvent.eventType)
     {
@@ -156,7 +156,7 @@ QvPlugin_EventHandler(SimpleEventHandler, ConnectionEntry)
             auto returnvalue = QProcess::execute(_command);
             if (returnvalue != 0)
             {
-                pluginInstance->PluginLog("Failed to execute command : \"" + action + "\"");
+                CommandPluginInstance->PluginLog("Failed to execute command : \"" + action + "\"");
             }
         }
         else
