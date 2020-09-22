@@ -5,6 +5,7 @@
 
 bool CommandPlugin::InitializePlugin(const QString &, const QJsonObject &)
 {
+    CommandPluginInstance = this;
     eventHandler = std::make_shared<SimpleEventHandler>();
     guiInterface = new CommandGUIInterface();
     return true;
