@@ -4,6 +4,13 @@
 
 #include <QProcess>
 
+#if QT_VERSION_MAJOR >= 6
+using QRegExp = QRegularExpression;
+    #define SkipEmpty Qt::SkipEmptyParts
+#else
+    #define SkipEmpty QString::SkipEmptyParts
+#endif
+
 using namespace Qv2rayPlugin;
 SimpleEventHandler::SimpleEventHandler() : Qv2rayPlugin::PluginEventHandler(){};
 QvPlugin_EventHandler(SimpleEventHandler, Connectivity)
@@ -21,22 +28,22 @@ QvPlugin_EventHandler(SimpleEventHandler, Connectivity)
     {
         case Events::Connectivity::Connected:
         {
-            actions << settings.afterConnection.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+            actions << settings.afterConnection.split(QRegExp("[\r\n]"), SkipEmpty);
             break;
         }
         case Events::Connectivity::Connecting:
         {
-            actions << settings.beforeConnection.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+            actions << settings.beforeConnection.split(QRegExp("[\r\n]"), SkipEmpty);
             break;
         }
         case Events::Connectivity::Disconnected:
         {
-            actions << settings.afterDisConnection.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+            actions << settings.afterDisConnection.split(QRegExp("[\r\n]"), SkipEmpty);
             break;
         }
         case Events::Connectivity::Disconnecting:
         {
-            actions << settings.beforeDisConnection.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+            actions << settings.beforeDisConnection.split(QRegExp("[\r\n]"), SkipEmpty);
             break;
         }
     }
@@ -77,12 +84,12 @@ QvPlugin_EventHandler(SimpleEventHandler, SystemProxy)
     {
         case Events::SystemProxy::SetProxy:
         {
-            actions << settings.setSystemProxy.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+            actions << settings.setSystemProxy.split(QRegExp("[\r\n]"), SkipEmpty);
             break;
         }
         case Events::SystemProxy::ClearProxy:
         {
-            actions << settings.clearSystemProxy.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+            actions << settings.clearSystemProxy.split(QRegExp("[\r\n]"), SkipEmpty);
             break;
         }
     }
@@ -120,23 +127,23 @@ QvPlugin_EventHandler(SimpleEventHandler, ConnectionEntry)
     {
         case Events::ConnectionEntry::Created:
         {
-            actions << settings.connectionCreated.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+            actions << settings.connectionCreated.split(QRegExp("[\r\n]"), SkipEmpty);
             break;
         }
         case Events::ConnectionEntry::FullyRemoved:
         case Events::ConnectionEntry::RemovedFromGroup:
         {
-            actions << settings.connectionDeleted.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+            actions << settings.connectionDeleted.split(QRegExp("[\r\n]"), SkipEmpty);
             break;
         }
         case Events::ConnectionEntry::Renamed:
         {
-            actions << settings.connectionRenamed.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+            actions << settings.connectionRenamed.split(QRegExp("[\r\n]"), SkipEmpty);
             break;
         }
         case Events::ConnectionEntry::Edited:
         {
-            actions << settings.connectionUpdated.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+            actions << settings.connectionUpdated.split(QRegExp("[\r\n]"), SkipEmpty);
             break;
         }
         case Events::ConnectionEntry::LinkedWithGroup:
