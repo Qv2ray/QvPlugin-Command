@@ -17,7 +17,7 @@ if(QVPLUGIN_USE_QT6)
 else()
     set(QV_QT_LIBNAME Qt5)
 endif()
-find_package(${QV_QT_LIBNAME} COMPONENTS Core Widgets Gui Network REQUIRED)
+find_package(${QV_QT_LIBNAME} COMPONENTS Core Widgets Gui REQUIRED)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
